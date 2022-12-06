@@ -32,7 +32,7 @@ with open("input.txt", 'r') as f:
                 block1.append(i[count]);count += 1
                 if count == counter: line_count +=1
         if line_count == 1:
-            while count != counter:
+            while count != counter: 
                 block2.append(i[count]);count += 1
                 if count == counter: line_count +=1
         if line_count == 2:
@@ -44,8 +44,5 @@ with open("input.txt", 'r') as f:
                 for y in block2:
                     if x == y:
                         for w in block3:
-                            if x == w:
-                                common = x ;line_count = 0 ; temp = alphabet.index(common); total += temp +1; block1,block2,block3 = [],[],[]
-                                print(total,common)
-                                break
+                            if x == w: common = x ;line_count = 0 ; temp = alphabet.index(common); total += temp +1; block1,block2,block3 = [],[],[]; print(total,common); break
 

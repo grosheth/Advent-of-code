@@ -6,21 +6,21 @@ common = ""
 
 # Part 1
 
-# with open("input.txt", 'r') as f:
-#     for i in f:
-#         first_half,second_half = [], []
-#         half = (len(i) -1) / 2; counter = len(i) -1; count = 0
-#         while count != half:
-#             first_half.append(i[count]);count += 1
-#         while count != counter:
-#             second_half.append(i[count]);count += 1
-#         for x in first_half:
-#             for y in second_half:
-#                 if x == y:
-#                     common = x
-#         temp = alphabet.index(common)
-#         total += temp +1
-#         print(total,common)
+with open("input.txt", 'r') as f:
+    for i in f:
+        first_half,second_half = [], []
+        half = (len(i) -1) / 2; counter = len(i) -1; count = 0
+        while count != half:
+            first_half.append(i[count]);count += 1
+        while count != counter:
+            second_half.append(i[count]);count += 1
+        for x in first_half:
+            for y in second_half:
+                if x == y:
+                    common = x
+        temp = alphabet.index(common)
+        total += temp +1
+        print(total,common)
 
 # Part 2
 line_count = 0; block1,block2,block3 = [],[],[]

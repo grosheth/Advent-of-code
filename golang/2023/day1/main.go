@@ -3,7 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"github.com/grosheth/Advent-of-code/golang/util"
+	"github.com/alexchao26/advent-of-code-go/util"
 	"log"
 	"os"
 )

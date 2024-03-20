@@ -1,18 +1,14 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"github.com/grosheth/Advent-of-code"
-	"log"
-	"os"
+
+	"github.com/grosheth/Advent-of-code/golang/util"
 )
 
 func main() {
-	lines, err := readLines("input.txt")
-	if err != nil {
-		log.Fatalf("readLines: %s", err)
-	}
-	fmt.Println(lines[0])
+
+	file := util.ReadFile("input.txt")
+	fmt.Println(file)
 
 }

@@ -7,8 +7,12 @@ import (
 )
 
 func main() {
+	answer := part1(util.ReadFile("input.txt"))
 
-	file := util.ReadFile("input.txt")
-	fmt.Println(file)
+	fmt.Println("Reponse:", answer)
 
+}
+
+func part1(file string) string {
+	return file
 }

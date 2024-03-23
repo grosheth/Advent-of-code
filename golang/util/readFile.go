@@ -1,42 +1,31 @@
 package util
 
 import (
+	"bufio"
+	"log"
 	"os"
-	"path"
-	"path/filepath"
-	"runtime"
-	"strings"
 )
 
-// ReadFile is a wrapper over io/ioutil.ReadFile but also determines the dynamic
-// absolute path to the file.
-//
-// Deprecated in favor of go:embed, refer to scripts/skeleton/tmpls
-func ReadFile(pathFromCaller string) string {
-	// Docs: https://golang.org/pkg/runtime/#Caller
-	_, filename, _, ok := runtime.Caller(1)
-	if !ok {
-		panic("Could not find Caller of util.ReadFile")
-	}
+func ReadFile(pathFromCaller string) []string {
+	file, err := os.Open("input.txt")
 
-	// parse directory with pathFromCaller (which could be relative to Directory)
-	absolutePath := path.Join(path.Dir(filename), pathFromCaller)
-
-	// read the entire file & return the byte slice as a string
-	content, err := os.ReadFile(absolutePath)
 	if err != nil {
-		panic(err)
+		log.Fatalf("failed to open")
 	}
-	// trim off new lines and tabs at end of input files
-	strContent := string(content)
-	return strings.TrimRight(strContent, "\n")
-}
 
-// Dirname is a port of __dirname in node
-func Dirname() string {
-	_, filename, _, ok := runtime.Caller(1)
-	if !ok {
-		panic("getting calling function")
+	scanner := bufio.NewScanner(file)
+	scanner.Split(bufio.ScanLines)
+
+	var text []string
+
+	for scanner.Scan() {
+		text = append(text, scanner.Text())
 	}
-	return filepath.Dir(filename)
+
+	file.Close()
+
+	// for _, each_ln := range text {
+	// 	fmt.Println(each_ln)
+	// }
+	return text
 }

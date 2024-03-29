@@ -25,11 +25,13 @@ func part1(file []string) []string {
 	blue := 14
 	fmt.Println(answer, green, red, blue)
 	// Split input by games
+	// Check results
 	for _, game := range file {
 		fmt.Println(game)
-		gameSplit, err := regexp.MatchString(game, "[0-9]")
-		println(err)
-		fmt.Println(gameSplit)
+		r, _ := regexp.Compile("game ([0-9]+)")
+		gameSplit := r.FindStringSubmatch(string(game))
+		// gameSplit, err := regexp.ReplaceAllString(game, "game")
+		fmt.Println("game result", gameSplit)
 	}
 
 	// only 12 red cubes, 13 green cubes, and 14 blue cubes

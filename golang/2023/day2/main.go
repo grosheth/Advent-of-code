@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/grosheth/Advent-of-code/golang/util"
 	"regexp"
-	// "strings"
+	"strings"
 )
 
 func main() {
@@ -30,31 +30,56 @@ func part1(file []string) []string {
 		// fmt.Println(game)
 
 		// get Game ID
-		// gameId, _ := regexp.Compile("[0-9]+")
-		// gameSplit := gameId.FindStringSubmatch(string(game))
+		// gameid, _ := regexp.compile("[0-9]+")
+		// gamesplit := gameid.findstringsubmatch(string(game))
 		// fmt.Println("gameId", gameSplit)
 
 		// Get colors
-		a := regexp.MustCompile(`:+`)
-		test := a.Split(game, -1)
-		fmt.Println("test", test)
-		for _, x := range test {
-			// x[0] == game number
-			// x[*] == game results
-			b := regexp.MustCompile(`;+`)
-			test1 := b.Split(x, -1)
-			// fmt.Println(test1)
-			for _, y := range test1 {
-				b := regexp.MustCompile(`,+`)
-				test2 := b.Split(y, -1)
-				fmt.Println(test2)
+		rgx := regexp.MustCompile(`:+`)
+		gameSplit := rgx.Split(game, -1)
+		fmt.Println("gameSplit", gameSplit)
+
+		for _, x := range gameSplit {
+
+			rgx := regexp.MustCompile(`;+`)
+			colorSplit := rgx.Split(x, -1)
+			fmt.Println("colorSplit", colorSplit)
+
+			for _, y := range colorSplit {
+
+				rgx := regexp.MustCompile(`,+`)
+				resultSplit := rgx.Split(y, -1)
+				fmt.Println("resultSplit", resultSplit)
+
+				for _, w := range resultSplit {
+
+					colorList := []string{"green", "red", "blue"}
+					for _, color := range colorList {
+						if strings.Contains(w, color) {
+							switch check := color; check {
+							case "green":
+								rgx := regexp.MustCompile(`[0-9]`)
+								number := rgx.Split(y, -1)
+								fmt.Println(number)
+							case "blue":
+								rgx := regexp.MustCompile(`,+`)
+								number := rgx.Split(y, -1)
+								fmt.Println(number)
+							case "red":
+								rgx := regexp.MustCompile(`,+`)
+								number := rgx.Split(y, -1)
+								fmt.Println(number)
+							}
+						}
+					}
+				}
+				// only 12 red cubes, 13 green cubes, and 14 blue cubes
+				// count number of game that are possible
+				// Sum the ID's of each possible game resultSplit[0]
+
 			}
 		}
 	}
-
-	// only 12 red cubes, 13 green cubes, and 14 blue cubes
-	// count number of game that are possible
-	// Sum the ID's of each possible game
 	return file
 }
 

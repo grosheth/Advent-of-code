@@ -25,7 +25,6 @@ func part1(file []string) []string {
 	blue := 14
 	fmt.Println(answer, green, red, blue)
 	// Split input by games
-	// Check results
 	for _, game := range file {
 		fmt.Println(game)
 		r, _ := regexp.Compile("game ([0-9]+)")

@@ -9,20 +9,16 @@ import (
 )
 
 func main() {
-	// answer1 := part1(util.ReadFile("input.txt"))
-	// fmt.Println("Part1:", answer1)
+	answer1 := part1(util.ReadFile("input.txt"))
+	fmt.Println("Part1:", answer1)
 
-	answer2 := part2(util.ReadFile("sample.txt"))
+	answer2 := part2(util.ReadFile("input.txt"))
 	fmt.Println("Part2:", answer2)
 
 }
 
-// PART 2
-// Get the biggest number of each color
-// The power of a set of cubes is equal to the numbers of red, green, and blue cubes multiplied together.
-// The power of the minimum set of cubes in game 1 is 48. In games 2-5 it was 12, 1560, 630, and 36, respectively.
-// Adding up these five powers produces the sum 2286
-func part2(file []string) int {
+// Part 1
+func part1(file []string) int {
 	valid := true
 	answer := 0
 	gameId := 0
@@ -80,13 +76,14 @@ func part2(file []string) int {
 	return answer
 }
 
-func part1(file []string) int {
-	valid := true
+// PART 2
+func part2(file []string) int {
 	answer := 0
-	gameId := 0
 
-	for index, game := range file {
-		gameId = index + 1
+	for _, game := range file {
+		redNombre := 0
+		greenNombre := 0
+		blueNombre := 0
 		rgx := regexp.MustCompile(`:+`)
 		gameSplit := rgx.Split(game, -1)
 
@@ -99,7 +96,7 @@ func part1(file []string) int {
 				resultSplit := rgx.Split(y, -1)
 
 				for _, w := range resultSplit {
-					colorList := []string{"green", "red", "blue", "Game"}
+					colorList := []string{"green", "red", "blue"}
 					rgx := regexp.MustCompile(`[0-9]+`)
 					number := rgx.FindStringSubmatch(w)
 					nombre, _ := strconv.Atoi(number[0])
@@ -108,19 +105,16 @@ func part1(file []string) int {
 						if strings.Contains(w, color) {
 							switch check := color; check {
 							case "green":
-								if nombre > 13 {
-									fmt.Println("game", gameId, "is not valid")
-									gameId = 0
+								if nombre > greenNombre {
+									greenNombre = nombre
 								}
 							case "blue":
-								if nombre > 14 {
-									fmt.Println("game", gameId, "is not valid")
-									gameId = 0
+								if nombre > blueNombre {
+									blueNombre = nombre
 								}
 							case "red":
-								if nombre > 12 {
-									fmt.Println("game", gameId, "is not valid")
-									gameId = 0
+								if nombre > redNombre {
+									redNombre = nombre
 								}
 							}
 						}
@@ -128,10 +122,8 @@ func part1(file []string) int {
 				}
 			}
 		}
-		if valid == true {
-			answer += gameId
-		}
-		valid = true
+		power := greenNombre * blueNombre * redNombre
+		answer += power
 	}
 	return answer
 }

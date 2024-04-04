@@ -3,8 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/grosheth/Advent-of-code/golang/util"
-	"log"
-	"regexp"
+	"unicode"
 )
 
 func main() {
@@ -22,17 +21,75 @@ func main() {
 func part1(file []string) int {
 	answer := 0
 
-	// find symbols
-	re, err := regexp.Compile(`[-!$%^&*()#_+|~={}\[\]:";'<@>?,\/]`)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	for _, x := range file {
-		x = re.ReplaceAllString(x, " ")
-		fmt.Println(x)
+	for pos, mid := range file {
+		if mid == file[0] {
+			down := file[pos+1]
+			table := []string{
+				mid,
+				down,
+			}
+			getPartNumber(table)
+		} else {
+			if mid == file[len(file)-1] {
+				up := file[pos-1]
+				table := []string{
+					up,
+					mid,
+				}
+				getPartNumber(table)
+			} else {
+				up := file[pos-1]
+				down := file[pos+1]
+				table := []string{
+					up,
+					mid,
+					down,
+				}
+				getPartNumber(table)
+			}
+		}
 	}
 	return answer
+}
+
+func getPartNumber(table []string) {
+	re := map[string]bool{
+		"[": true,
+		"-": true,
+		"!": true,
+		"$": true,
+		"*": true,
+		"%": true,
+		"^": true,
+		"&": true,
+		"(": true,
+		")": true,
+		"#": true,
+		"_": true,
+		"+": true,
+		// |~={}\[\]:";'<@>?,\/]`}
+	}
+	// check with same row
+	for _, row := range table {
+		for pos, char := range row {
+			if unicode.IsDigit(char) {
+				if pos > 0 {
+					// check before current row
+					fmt.Println(string(char), string(table[0][pos]))
+					if re[string(row[pos-1])] {
+						fmt.Println(string(char), string(table[0][pos]))
+					}
+				} else {
+					// check after current row
+					if pos != len(row) {
+						if re[string(row[pos+1])] {
+							fmt.Println(string(char), string(table[0][pos]))
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
 // Part 2

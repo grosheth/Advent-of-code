@@ -6,9 +6,7 @@
   tasks:
     - name: "open file"
       delegate_to: localhost
-      slurp:
-        src: input.txt
-      register: test
+      set_fact:
+        test: "{{ lookup('file', '{{ playbook_dir }}/input.txt') }}"
 
-    - name:
-      debug: "{{ test | b64decode }}"
+    - name: ""

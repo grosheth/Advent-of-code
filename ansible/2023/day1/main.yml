@@ -9,4 +9,4 @@
       set_fact:
         test: "{{ lookup('file', '{{ playbook_dir }}/input.txt') }}"
 
-    - name: ""
+    - name: "loop over file "

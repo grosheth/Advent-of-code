@@ -1,0 +1,14 @@
+---
+- name: "2023 - Day 1"
+  connection: ansible.netcommon.network_cli
+  gather_facts: false
+  hosts: localhost
+  tasks:
+    - name: "open file"
+      delegate_to: localhost
+      slurp:
+        src: input.txt
+      register: test
+
+    - name:
+      debug: "{{ test | b64decode }}"

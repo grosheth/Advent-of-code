@@ -86,6 +86,7 @@ func getPartNumber(table []string) {
 							fmt.Println(string(char), string(table[0][pos]))
 						}
 					}
+
 				}
 			}
 		}

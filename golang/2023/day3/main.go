@@ -74,7 +74,6 @@ func getPartNumber(table []string) {
 		for pos, char := range row {
 			if unicode.IsDigit(char) {
 				if pos > 0 {
-					fmt.Println("|current char:", string(char), "| char before: ", string(row[pos-1]), "| current row |")
 					// Checking char before on same row
 					if re[string(row[pos-1])] {
 						fmt.Println("|current char:", string(char), "| char before: ", string(row[pos-1]), "| current row |")
@@ -83,7 +82,7 @@ func getPartNumber(table []string) {
 					// Checking char after on same row
 					if pos != len(row) {
 						if re[string(row[pos+1])] {
-							fmt.Println("check char after | current row |", string(char), string(table[0][pos]))
+							fmt.Println("|current char:", string(char), "| char after: ", string(row[pos+1]), "| current row |")
 							fmt.Println(string(char), string(table[0][pos]))
 						}
 					}

@@ -74,12 +74,13 @@ func getPartNumber(table []string) {
 		for pos, char := range row {
 			if unicode.IsDigit(char) {
 				if pos > 0 {
-					fmt.Println("|current char:", string(char), "| char before: ", string(table[0][pos]), "| current row |")
+					fmt.Println("|current char:", string(char), "| char before: ", string(row[pos-1]), "| current row |")
+					// Checking char before on same row
 					if re[string(row[pos-1])] {
-						fmt.Println("|current char:", string(char), "| char before: ", string(table[0][pos]), "| current row |")
+						fmt.Println("|current char:", string(char), "| char before: ", string(row[pos-1]), "| current row |")
 					}
 				} else {
-					// check after current row
+					// Checking char after on same row
 					if pos != len(row) {
 						if re[string(row[pos+1])] {
 							fmt.Println("check char after | current row |", string(char), string(table[0][pos]))
@@ -91,13 +92,6 @@ func getPartNumber(table []string) {
 		}
 	}
 }
-
-// Part 2
-// func part2(file []string) int {
-// 	answer := 0
-//
-// 	return answer
-// }
 
 // remove all symbols
 // func part1(file []string) int {
@@ -111,5 +105,12 @@ func getPartNumber(table []string) {
 // 		x = re.ReplaceAllString(x, "")
 // 		fmt.Println(x)
 // 	}
+// 	return answer
+// }
+
+// Part 2
+// func part2(file []string) int {
+// 	answer := 0
+//
 // 	return answer
 // }

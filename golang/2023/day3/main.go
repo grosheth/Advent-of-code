@@ -21,38 +21,13 @@ func main() {
 func part1(file []string) int {
 	answer := 0
 
-	for pos, mid := range file {
-		if mid == file[0] {
-			down := file[pos+1]
-			table := []string{
-				mid,
-				down,
-			}
-			getPartNumber(table)
-		} else {
-			if mid == file[len(file)-1] {
-				up := file[pos-1]
-				table := []string{
-					up,
-					mid,
-				}
-				getPartNumber(table)
-			} else {
-				up := file[pos-1]
-				down := file[pos+1]
-				table := []string{
-					up,
-					mid,
-					down,
-				}
-				getPartNumber(table)
-			}
-		}
-	}
+	getPartNumber(file)
+
 	return answer
 }
 
 func getPartNumber(table []string) {
+	part := []int{}
 	re := map[string]bool{
 		"[": true,
 		"-": true,
@@ -70,19 +45,72 @@ func getPartNumber(table []string) {
 		// |~={}\[\]:";'<@>?,\/]`}
 	}
 	// check with same row
-	for _, row := range table {
-		for pos, char := range row {
+	for position, row := range table {
+		for charPos, char := range row {
 			if unicode.IsDigit(char) {
-				// Checking char before on same row
-				if pos > 0 {
-					if ok := re[string(row[pos-1])]; ok {
-						fmt.Println("|current char:", string(char), "| char before: ", string(row[pos-1]), "| current row |", row)
+				// Build number before analysing other values
+				// Get all numbers next to char when char is a number
+				// Get all numbers next to char when char is a number
+				// Get all numbers next to char when char is a number
+				// Get all numbers next to char when char is a number
+				// Get all numbers next to char when char is a number
+				if charPos > 0 {
+					if ok := re[string(row[charPos-1])]; ok {
+						fmt.Println("|current char:", string(char), "| char before: ", string(row[charPos-1]))
+						part = append(part, int(char))
+						break
 					}
 				}
 				// Checking char after on same row
-				if pos != len(row) {
-					if ok := re[string(row[pos+1])]; ok {
-						fmt.Println("|current char:", string(char), "| char after: ", string(row[pos+1]), "| current row |", row)
+				if charPos != len(row) {
+					if ok := re[string(row[charPos+1])]; ok {
+						fmt.Println("|current char:", string(char), "| char after: ", string(row[charPos+1]))
+						part = append(part, int(char))
+						break
+					}
+				}
+				// Checking for char on upper row
+				if position > 0 {
+					if ok := re[string(table[position-1][charPos])]; ok {
+						fmt.Println("|current char:", string(char), "| char over: ", string(table[position-1][charPos]))
+						part = append(part, int(char))
+						break
+					}
+					if charPos > 0 {
+						if ok := re[string(table[position-1][charPos-1])]; ok {
+							fmt.Println("|current char:", string(char), "| char over left: ", string(table[position-1][charPos-1]))
+							part = append(part, int(char))
+							break
+						}
+					}
+					if charPos != len(row) {
+						if ok := re[string(table[position-1][charPos+1])]; ok {
+							fmt.Println("|current char:", string(char), "| char over right: ", string(table[position-1][charPos+1]))
+							part = append(part, int(char))
+							break
+						}
+					}
+				}
+				// Checking for char on lower row
+				if position != len(table)-1 {
+					if ok := re[string(table[position+1][charPos])]; ok {
+						fmt.Println("|current char:", string(char), "| char under: ", string(table[position+1][charPos]))
+						part = append(part, int(char))
+						break
+					}
+					if charPos > 0 {
+						if ok := re[string(table[position][charPos-1])]; ok {
+							fmt.Println("|current char:", string(char), "| char under left: ", string(table[position+1][charPos-1]))
+							part = append(part, int(char))
+							break
+						}
+					}
+					if charPos != len(row) {
+						if ok := re[string(table[position][charPos+1])]; ok {
+							fmt.Println("|current char:", string(char), "| char under right: ", string(table[position+1][charPos+1]))
+							part = append(part, int(char))
+							break
+						}
 					}
 				}
 			}

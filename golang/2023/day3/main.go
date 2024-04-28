@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/grosheth/Advent-of-code/golang/util"
 	"unicode"
+
+	"github.com/grosheth/Advent-of-code/golang/util"
 )
 
 func main() {
@@ -12,7 +13,6 @@ func main() {
 
 	// answer2 := part2(util.ReadFile("input.txt"))
 	// fmt.Println("Part2:", answer2)
-
 }
 
 // Part 1
@@ -73,18 +73,16 @@ func getPartNumber(table []string) {
 	for _, row := range table {
 		for pos, char := range row {
 			if unicode.IsDigit(char) {
+				// Checking char before on same row
 				if pos > 0 {
-					// Checking char before on same row
-					if re[string(row[pos-1])] {
-						fmt.Println("|current char:", string(char), "| char before: ", string(row[pos-1]), "| current row |")
+					if ok := re[string(row[pos-1])]; ok {
+						fmt.Println("|current char:", string(char), "| char before: ", string(row[pos-1]), "| current row |", row)
 					}
-				} else {
-					// Checking char after on same row
-					if pos != len(row) {
-						if re[string(row[pos+1])] {
-							fmt.Println("|current char:", string(char), "| char after: ", string(row[pos+1]), "| current row |")
-							fmt.Println(string(char), string(table[0][pos]))
-						}
+				}
+				// Checking char after on same row
+				if pos != len(row) {
+					if ok := re[string(row[pos+1])]; ok {
+						fmt.Println("|current char:", string(char), "| char after: ", string(row[pos+1]), "| current row |", row)
 					}
 				}
 			}

@@ -42,7 +42,6 @@ func getPartNumber(table []string) {
 		"#": true,
 		"_": true,
 		"+": true,
-
 		// |~={}\[\]:";'<@>?,\/]`}
 	}
 	// check with same row

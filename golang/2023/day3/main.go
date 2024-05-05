@@ -15,7 +15,7 @@ func main() {
 	// fmt.Println("Part2:", answer2)
 }
 
-// Part 1
+// Part 1P
 // Add the part numbers
 // part numbers are adjacent to symbols
 func part1(file []string) int {
@@ -45,7 +45,8 @@ func getPartNumber(table []string) {
 		// |~={}\[\]:";'<@>?,\/]`}
 	}
 	// check with same row
-	for position, row := range table {
+	// for position, row := range table {
+	for _, row := range table {
 		for charPos, char := range row {
 			if unicode.IsDigit(char) {
 				// Build number before analysing other values
@@ -59,57 +60,57 @@ func getPartNumber(table []string) {
 					}
 				}
 				// Checking char after on same row
-				if charPos != len(row) {
-					if ok := re[string(row[charPos+1])]; ok {
-						fmt.Println("|current char:", string(char), "| char after: ", string(row[charPos+1]))
-						part = append(part, int(char))
-						break
-					}
-				}
-				// Checking for char on upper row
-				if position > 0 {
-					if ok := re[string(table[position-1][charPos])]; ok {
-						fmt.Println("|current char:", string(char), "| char over: ", string(table[position-1][charPos]))
-						part = append(part, int(char))
-						break
-					}
-					if charPos > 0 {
-						if ok := re[string(table[position-1][charPos-1])]; ok {
-							fmt.Println("|current char:", string(char), "| char over left: ", string(table[position-1][charPos-1]))
-							part = append(part, int(char))
-							break
-						}
-					}
-					if charPos != len(row) {
-						if ok := re[string(table[position-1][charPos+1])]; ok {
-							fmt.Println("|current char:", string(char), "| char over right: ", string(table[position-1][charPos+1]))
-							part = append(part, int(char))
-							break
-						}
-					}
-				}
-				// Checking for char on lower row
-				if position != len(table)-1 {
-					if ok := re[string(table[position+1][charPos])]; ok {
-						fmt.Println("|current char:", string(char), "| char under: ", string(table[position+1][charPos]))
-						part = append(part, int(char))
-						break
-					}
-					if charPos > 0 {
-						if ok := re[string(table[position][charPos-1])]; ok {
-							fmt.Println("|current char:", string(char), "| char under left: ", string(table[position+1][charPos-1]))
-							part = append(part, int(char))
-							break
-						}
-					}
-					if charPos != len(row) {
-						if ok := re[string(table[position][charPos+1])]; ok {
-							fmt.Println("|current char:", string(char), "| char under right: ", string(table[position+1][charPos+1]))
-							part = append(part, int(char))
-							break
-						}
-					}
-				}
+				// if charPos != len(row) {
+				// 	if ok := re[string(row[charPos+1])]; ok {
+				// 		fmt.Println("|current char:", string(char), "| char after: ", string(row[charPos+1]))
+				// 		part = append(part, int(char))
+				// 		break
+				// 	}
+				// }
+				// // Checking for char on upper row
+				// if position > 0 {
+				// 	if ok := re[string(table[position-1][charPos])]; ok {
+				// 		fmt.Println("|current char:", string(char), "| char over: ", string(table[position-1][charPos]))
+				// 		part = append(part, int(char))
+				// 		break
+				// 	}
+				// 	if charPos > 0 {
+				// 		if ok := re[string(table[position-1][charPos-1])]; ok {
+				// 			fmt.Println("|current char:", string(char), "| char over left: ", string(table[position-1][charPos-1]))
+				// 			part = append(part, int(char))
+				// 			break
+				// 		}
+				// 	}
+				// 	if charPos != len(row) {
+				// 		if ok := re[string(table[position-1][charPos+1])]; ok {
+				// 			fmt.Println("|current char:", string(char), "| char over right: ", string(table[position-1][charPos+1]))
+				// 			part = append(part, int(char))
+				// 			break
+				// 		}
+				// 	}
+				// }
+				// // Checking for char on lower row
+				// if position != len(table)-1 {
+				// 	if ok := re[string(table[position+1][charPos])]; ok {
+				// 		fmt.Println("|current char:", string(char), "| char under: ", string(table[position+1][charPos]))
+				// 		part = append(part, int(char))
+				// 		break
+				// 	}
+				// 	if charPos > 0 {
+				// 		if ok := re[string(table[position][charPos-1])]; ok {
+				// 			fmt.Println("|current char:", string(char), "| char under left: ", string(table[position+1][charPos-1]))
+				// 			part = append(part, int(char))
+				// 			break
+				// 		}
+				// 	}
+				// 	if charPos != len(row) {
+				// 		if ok := re[string(table[position][charPos+1])]; ok {
+				// 			fmt.Println("|current char:", string(char), "| char under right: ", string(table[position+1][charPos+1]))
+				// 			part = append(part, int(char))
+				// 			break
+				// 		}
+				// 	}
+				// }
 			}
 		}
 	}

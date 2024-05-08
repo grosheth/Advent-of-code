@@ -51,7 +51,6 @@ func getPartNumber(table []string) {
 			if unicode.IsDigit(char) {
 				// Build number before analysing other values
 				// Get all numbers next to char when char is a number
-				// Get all numbers next to char when char is a number
 				if charPos > 0 {
 					if ok := re[string(row[charPos-1])]; ok {
 						fmt.Println("|current char:", string(char), "| char before: ", string(row[charPos-1]))

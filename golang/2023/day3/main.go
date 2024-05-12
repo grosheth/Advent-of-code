@@ -52,20 +52,22 @@ func getPartNumber(table []string) {
 				// Build number before analysing other values
 				// Get all numbers next to char when char is a number
 				if charPos > 0 {
-					if ok := re[string(row[charPos-1])]; ok {
+					num := rune(row[charPos-1])
+					if unicode.IsDigit(num) {
 						fmt.Println("|current char:", string(char), "| char before: ", string(row[charPos-1]))
+						part = append(part, int(char))
+						fmt.Println(string(part[0]))
+						// break
+					}
+				}
+				// Checking char after on same row
+				if charPos != len(row) {
+					if ok := re[string(row[charPos+1])]; ok {
+						fmt.Println("|current char:", string(char), "| char after: ", string(row[charPos+1]))
 						part = append(part, int(char))
 						break
 					}
 				}
-				// Checking char after on same row
-				// if charPos != len(row) {
-				// 	if ok := re[string(row[charPos+1])]; ok {
-				// 		fmt.Println("|current char:", string(char), "| char after: ", string(row[charPos+1]))
-				// 		part = append(part, int(char))
-				// 		break
-				// 	}
-				// }
 				// // Checking for char on upper row
 				// if position > 0 {
 				// 	if ok := re[string(table[position-1][charPos])]; ok {

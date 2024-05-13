@@ -7,6 +7,11 @@
     - name: "open file"
       delegate_to: localhost
       set_fact:
-        test: "{{ lookup('file', '{{ playbook_dir }}/input.txt') }}"
+        content: "{{ lookup('file', '{{ playbook_dir }}/input.txt') | split() }}"
 
-    # - name: "loop over file "
+    - name: "Looping through content"
+      set_fact:
+        number: "{{ content | default('') }}"
+      loop: "{{ content }}"
+      loop_control:
+        loop_var: value

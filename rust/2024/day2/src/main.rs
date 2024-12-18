@@ -20,56 +20,59 @@ fn main() {
             }
         }
             for (index, value) in numbers_on_line.iter().enumerate() {
-                if index == 0 {
+                if index == 0 { 
+                    if *value < numbers_on_line[index + 1] {
+                        let mut ascending_check = true;
+                    } else {
+                        let mut ascending_check = false;
+                    }
                     continue;
                 }
 
-                // check descending
-                if *value < numbers_on_line[index - 1] {
-                    let mut descending_check = true;
+                if ascending_check {
                     println!("Value is descending, {:?}", numbers_on_line);
-                    // check number size difference
-                    // Number before should be greater than current number
-                    // Number after should be smaller than current number
-                    //TODO
-                    let mut diff = numbers_on_line[index - 1] - value;
-                    if  diff > 3 {
-                        println!("test");
-                        break;
-                    }
-                    if index == 0 || index < numbers_on_line.len() - 1 {
-                        if *value > numbers_on_line[index - 1] {
-                            println!("test");
-                            break;
-                        }
-                        if *value < numbers_on_line[index + 1] {
-                            println!("test");
-                            break;
-                        }
-                    }
-
-                }
-                // check acending
-                if *value > numbers_on_line[index - 1] {
-                    let mut ascending_check = true;
-                    println!("Value is ascending, {:?}", numbers_on_line);
-                    // Number before should be greater than current number
-                    // Number after should be smaller than current number
-                    //TODO
-                    let mut diff = numbers_on_line[index - 1] - value;
-                    if  diff > 3 {
-                        println!("test");
-                        break;
-                    }
                     if *value > numbers_on_line[index + 1] {
-                        println!("test");
-                        break;
+                        // check number size difference
+                        // Number before should be greater than current number
+                        // Number after should be smaller than current number
+                        //TODO
+                        let diff = numbers_on_line[index - 1] - value;
+                        if  diff > 3 {
+                            println!("test");
+                            break;
+                        }
+                        if index == 0 || index < numbers_on_line.len() - 1 {
+                            if *value > numbers_on_line[index - 1] {
+                                println!("test");
+                                break;
+                            }
+                            if *value < numbers_on_line[index + 1] {
+                                println!("test");
+                                break;
+                            }
+                        }
                     }
-                    if *value < numbers_on_line[index - 1] {
-                        println!("test");
-                        break;
-                    }
-                }  
+                } else {
+                    println!("Value is ascending, {:?}", numbers_on_line);
+                    if *value > numbers_on_line[index + 1] {
+                        // Number before should be greater than current number
+                        // Number after should be smaller than current number
+                        //TODO
+                        let  diff = numbers_on_line[index - 1] - value;
+                        if  diff > 3 {
+                            println!("test");
+                            break;
+                        }
+                        if *value > numbers_on_line[index + 1] {
+                            println!("test");
+                            break;
+                        }
+                        if *value < numbers_on_line[index - 1] {
+                            println!("test");
+                            break;
+                        }
+                    }  
+                }
             }
         total_safe_lines += 1; 
     }
